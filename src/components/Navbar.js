@@ -8,7 +8,7 @@ const Navbar = () => {
 
     const logout = () => {
         onAuthenticated(false);
-        navigate('/');
+        navigate('/logout');
     }
 
     return (

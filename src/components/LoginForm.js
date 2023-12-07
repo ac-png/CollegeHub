@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const LoginForm = () => {
     const { onAuthenticated } = useAuth();
+    const navigate = useNavigate();
 
     const errorStyle = {
         color: 'red'
@@ -25,6 +27,7 @@ const LoginForm = () => {
         })
         .then(response => {
             onAuthenticated(true, response.data.token);
+            navigate('/courses');
         })
         .catch(err => {
             console.error(err);

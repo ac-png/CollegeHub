@@ -4,6 +4,7 @@ import { useAuth } from './contexts/AuthContext';
 
 import Navbar from './components/Navbar';
 import LoginForm from './components/LoginForm';
+import Logout from './components/Logout';
 import SignupForm from './components/SignupForm';
 import CoursesIndex from './pages/courses/Index';
 import LecturersIndex from './pages/lecturers/Index';
@@ -41,6 +42,7 @@ function App() {
       <Routes>
         <Route path='/login' element={<LoginForm />} />
         <Route path='/signup' element={<SignupForm />} />
+        <Route path='/logout' element={<Logout />} />
         {protectedRoutes}
         <Route path='*' element={<PageNotFound />} />
       </Routes>
