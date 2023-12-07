@@ -27,20 +27,24 @@ const Index = () => {
     const lecturersList = lecturers.map(lecturer => {
         return (
             <div key={lecturer.id} className="cell medium-4">
-            <div className="callout">
+            <div className="callout"  style={{ borderRadius: '5px' }}>
                 {authenticated ? (
                     <h4><Link to={`/lecturers/${lecturer.id}`} className="link">{lecturer.name}</Link></h4>
                 ) : (
                     <h4>{lecturer.name}</h4>
                 )}
+                <p><strong>Address:</strong> {lecturer.address}</p>
+                <p><strong>Email Address:</strong> {lecturer.email}</p>
+                <p><strong>Phone Number:</strong> {lecturer.phone}</p>
             </div>
         </div>
         );
     });
 
     return (
-        <div className="grid-container">
+        <div className="grid-container" style={{ marginTop: '20px' }}>
             <h2>All Lecturers</h2>
+            <button class="submit success button">Add Lecturer</button>
             <div className="grid-x grid-margin-x">
                 {lecturersList}
             </div>

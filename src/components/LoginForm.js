@@ -50,11 +50,9 @@ const LoginForm = () => {
                         <label htmlFor="email">Email
                             <input onChange={handleForm} type="text" name="email" value={form.email} />
                         </label>
-
                         <label htmlFor="password">Password
                             <input onChange={handleForm} type="password" name="password" value={form.password} />
                         </label>
-
                         <button type="submit" className="button expanded">Login</button>
                         <p style={errorStyle}>{errorMessage}</p>
                     </form>

@@ -15,7 +15,6 @@ const Navbar = () => {
         <div className="top-bar stacked-for-medium" id="example-menu">
             <div className="top-bar-left">
                 <ul className="dropdown menu" data-dropdown-menu>
-                    <li><Link to="/">Home</Link></li>
                     <li><Link to="/courses">Courses</Link></li>
                     <li><Link to="/lecturers">Lecturers</Link></li>
                     <li><Link to="/enrolments">Enrolments</Link></li>

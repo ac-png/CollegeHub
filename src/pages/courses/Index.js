@@ -27,20 +27,24 @@ const Index = () => {
     const coursesList = courses.map(course => {
         return (
             <div key={course.id} className="cell medium-4">
-            <div className="callout">
+            <div className="callout"  style={{ borderRadius: '5px' }}>
                 {authenticated ? (
                     <h4><Link to={`/courses/${course.id}`} className="link">{course.title}</Link></h4>
                 ) : (
                     <h4>{course.title}</h4>
                 )}
+                <p><strong>Code:</strong> {course.code}</p>
+                <p><strong>Points:</strong> {course.points}</p>
+                <p><strong>Level:</strong> {course.level}</p>
             </div>
         </div>
         );
     });
 
     return (
-        <div className="grid-container">
+        <div className="grid-container" style={{ marginTop: '20px' }}>
             <h2>All Courses</h2>
+            <button class="submit success button">Add Course</button>
             <div className="grid-x grid-margin-x">
                 {coursesList}
             </div>

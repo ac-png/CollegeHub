@@ -6,12 +6,11 @@ const Home = () => {
 
     return (
         <>
-        <h2>This is home</h2>
-        {(!authenticated) ? (
-                <LoginForm />
-        ) : (
-            <p>You are authenticated</p>
-        )}
+            {(!authenticated) ? (
+                    <LoginForm />
+            ) : (
+                <p>You are authenticated</p>
+            )}
         </>
     );
 }

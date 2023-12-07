@@ -27,7 +27,7 @@ const Index = () => {
 
     const enrolmentsList = enrolments.map(enrolment => (
         <div key={enrolment.id} className="cell medium-4">
-            <div className="callout">
+            <div className="callout" style={{ borderRadius: '5px' }}>
                 {authenticated ? (
                     <h4><Link to={`/enrolments/${enrolment.id}`} className="link">{enrolment.id}</Link></h4>
                 ) : (
@@ -38,8 +38,9 @@ const Index = () => {
     ));
 
     return (
-        <div className="grid-container">
+        <div className="grid-container" style={{ marginTop: '20px' }}>
             <h2>All Enrolments</h2>
+            <button class="submit success button">Add Enrolment</button>
             <div className="grid-x grid-margin-x">
                 {enrolmentsList}
             </div>
