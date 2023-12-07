@@ -28,6 +28,12 @@ const Navbar = () => {
                             <li><Link to="/user">Account</Link></li>
                         </>
                     ) : ""}
+                    {(!authenticated) ? (
+                        <>
+                            <li><Link to="/login" className='button'>Login</Link></li>
+                            <li><Link to="/signup" className='button'>Signup</Link></li>
+                        </>
+                    ) : ""}
                 </ul>
             </div>
         </div>

@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
 
-import Navbar from "./components/Navbar";
-import Home from './pages/Home';
+import Navbar from './components/Navbar';
+import LoginForm from './components/LoginForm';
+import SignupForm from './components/SignupForm';
 import CoursesIndex from './pages/courses/Index';
 import LecturersIndex from './pages/lecturers/Index';
 import EnrolmentsIndex from './pages/enrolments/Index';
@@ -38,7 +39,8 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/login' element={<LoginForm />} />
+        <Route path='/signup' element={<SignupForm />} />
         {protectedRoutes}
         <Route path='*' element={<PageNotFound />} />
       </Routes>
