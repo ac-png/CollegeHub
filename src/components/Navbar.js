@@ -24,14 +24,14 @@ const Navbar = () => {
                 <ul className="menu">
                     {(authenticated) ? (
                         <>
-                            <li><button className='button' onClick={logout}>Logout</button></li>
+                            <li><button className='button alert' onClick={logout}>Logout</button></li>
                             <li><Link to="/user">Account</Link></li>
                         </>
                     ) : ""}
                     {(!authenticated) ? (
                         <>
                             <li><Link to="/login" className='button'>Login</Link></li>
-                            <li><Link to="/signup" className='button'>Signup</Link></li>
+                            <li><Link to="/signup">Signup</Link></li>
                         </>
                     ) : ""}
                 </ul>
