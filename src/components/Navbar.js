@@ -23,7 +23,10 @@ const Navbar = () => {
             <div className="top-bar-right">
                 <ul className="menu">
                     {(authenticated) ? (
-                        <li><button className='button' onClick={logout}>Logout</button></li>
+                        <>
+                            <li><button className='button' onClick={logout}>Logout</button></li>
+                            <li><Link to="/user">Account</Link></li>
+                        </>
                     ) : ""}
                 </ul>
             </div>

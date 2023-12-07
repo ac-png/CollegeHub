@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import CoursesIndex from './pages/courses/Index';
 import LecturersIndex from './pages/lecturers/Index';
 import EnrolmentsIndex from './pages/enrolments/Index';
+import User from "./pages/User";
 
 import PageNotFound from './pages/PageNotFound';
 
@@ -28,6 +29,7 @@ function App() {
         <Route path='/courses' element={<CoursesIndex />} />
         <Route path='/lecturers' element={<LecturersIndex />} />
         <Route path='/enrolments' element={<EnrolmentsIndex />} />
+        <Route path='/user' element={<User />} />
       </>
     );
   }
