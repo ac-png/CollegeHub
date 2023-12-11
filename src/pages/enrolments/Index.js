@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import axios from '../../config/api';
 import { useAuth } from "../../contexts/AuthContext";
@@ -15,7 +15,6 @@ const Index = () => {
             }
         })
         .then(response => {
-            console.log(response.data.data)
             setEnrolments(response.data.data);
         })
         .catch(err => {
@@ -23,26 +22,34 @@ const Index = () => {
         })
     }, []);
 
-    if (enrolments.length === 0) return <h3>There are no enrolments</h3>;
-
-    const enrolmentsList = enrolments.map(enrolment => (
-        <div key={enrolment.id} className="cell medium-4">
-            <div className="callout" style={{ borderRadius: '5px' }}>
-                {authenticated ? (
-                    <h4><Link to={`/enrolments/${enrolment.id}`} className="link">{enrolment.id}</Link></h4>
-                ) : (
-                    <h4>{enrolment.id}</h4>
-                )}
-            </div>
-        </div>
-    ));
-
     return (
         <div className="grid-container" style={{ marginTop: '20px' }}>
             <h2>All Enrolments</h2>
-            <button class="submit success button">Add Enrolment</button>
+            <Link to="/add-enrolment" className="submit success button">Add Enrolment</Link>
             <div className="grid-x grid-margin-x">
-                {enrolmentsList}
+                {enrolments.length === 0 ? (
+                    <h3>There are no enrolments</h3>
+                ) : (
+                    enrolments.map(enrolment => (
+                        <div key={enrolment.id} className="cell medium-4">
+                            <div className="callout" style={{ borderRadius: '5px' }}>
+                                <h4><b>ID: </b>{enrolment.id}</h4>
+                                <p><b>Date: </b>{enrolment.date}</p>
+                                <p><b>Time: </b>{enrolment.time}</p>
+                                <p><b>Status: </b>{enrolment.status}</p>
+                                <p><b>Course: </b>{enrolment.course.title}</p>
+                                <p><b>Lecturer: </b>{enrolment.lecturer.name}</p>
+                                {authenticated && (
+                                    <p>
+                                        <Link to={`/enrolments/${enrolment.id}`} className="link">
+                                            View Details
+                                        </Link>
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+                    ))
+                )}
             </div>
         </div>
     );

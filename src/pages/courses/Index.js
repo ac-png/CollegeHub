@@ -44,7 +44,7 @@ const Index = () => {
     return (
         <div className="grid-container" style={{ marginTop: '20px' }}>
             <h2>All Courses</h2>
-            <button class="submit success button">Add Course</button>
+            <button className="submit success button">Add Course</button>
             <div className="grid-x grid-margin-x">
                 {coursesList}
             </div>

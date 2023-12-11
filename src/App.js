@@ -6,11 +6,17 @@ import Navbar from './components/Navbar';
 import LoginForm from './components/LoginForm';
 import Logout from './components/Logout';
 import SignupForm from './components/SignupForm';
-import CoursesIndex from './pages/courses/Index';
-import LecturersIndex from './pages/lecturers/Index';
-import EnrolmentsIndex from './pages/enrolments/Index';
-import User from "./pages/User";
 
+import CoursesIndex from './pages/courses/Index';
+import CourseShow from './pages/courses/Show';
+
+import LecturersIndex from './pages/lecturers/Index';
+import LecturerShow from './pages/lecturers/Show';
+
+import EnrolmentsIndex from './pages/enrolments/Index';
+import EnrolmentsShow from './pages/enrolments/Show';
+
+import User from './pages/User';
 import PageNotFound from './pages/PageNotFound';
 
 function App() {
@@ -29,8 +35,14 @@ function App() {
     protectedRoutes = (
       <>
         <Route path='/courses' element={<CoursesIndex />} />
+        <Route path='/courses/:id' element={<CourseShow />} />
+
         <Route path='/lecturers' element={<LecturersIndex />} />
+        <Route path='/lecturers/:id' element={<LecturerShow />} />
+
         <Route path='/enrolments' element={<EnrolmentsIndex />} />
+        <Route path='/enrolments/:id' element={<EnrolmentsShow />} />
+        
         <Route path='/user' element={<User />} />
       </>
     );
