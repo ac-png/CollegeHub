@@ -9,6 +9,7 @@ import SignupForm from './components/SignupForm';
 
 import CoursesIndex from './pages/courses/Index';
 import CourseShow from './pages/courses/Show';
+import CourseCreate from './pages/courses/Create';
 
 import LecturersIndex from './pages/lecturers/Index';
 import LecturerShow from './pages/lecturers/Show';
@@ -36,6 +37,7 @@ function App() {
       <>
         <Route path='/courses' element={<CoursesIndex />} />
         <Route path='/courses/:id' element={<CourseShow />} />
+        <Route path='/courses/create' element={<CourseCreate />} />
 
         <Route path='/lecturers' element={<LecturersIndex />} />
         <Route path='/lecturers/:id' element={<LecturerShow />} />
