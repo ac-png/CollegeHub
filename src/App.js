@@ -25,6 +25,7 @@ import EnrollmentsShow from './pages/enrollments/Show';
 
 import User from './pages/User';
 import PageNotFound from './pages/PageNotFound';
+import Home from './pages/Home';
 
 function App() {
   // Using the authentication
@@ -78,6 +79,7 @@ function App() {
         <Route path='/login' element={<LoginForm />} />
         <Route path='/signup' element={<SignupForm />} />
         <Route path='/logout' element={<Logout />} />
+        <Route path='/' element={<Home />} />
 
         {/* Displaying protected routes if user is authenticated */}
         {protectedRoutes}
