@@ -12,7 +12,6 @@ import SignupForm from './components/SignupForm';
 // Importing pages
 import CoursesIndex from './pages/courses/Index';
 import CourseShow from './pages/courses/Show';
-import CourseCreate from './pages/courses/Create';
 
 import LecturersIndex from './pages/lecturers/Index';
 import LecturerShow from './pages/lecturers/Show';
@@ -46,7 +45,6 @@ function App() {
         {/* Routes for Courses */}
         <Route path='/courses' element={<CoursesIndex />} />
         <Route path='/courses/:id' element={<CourseShow />} />
-        <Route path='/courses/create' element={<CourseCreate />} />
 
         {/* Routes for Lecturers */}
         <Route path='/lecturers' element={<LecturersIndex />} />
