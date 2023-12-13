@@ -1,68 +1,81 @@
+// Importing necessary modules from React and external libraries
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import axios from '../../config/api';
 import { useAuth } from "../../contexts/AuthContext";
 
+// Component to display details of a specific enrollment
 const Show = () => {
+    // Using authentication context and params
     const { authenticated } = useAuth();
     const { id } = useParams();
-    const [enrolment, setEnrolment] = useState(null);
 
+    // State to store enrollment details
+    const [enrollment, setEnrollment] = useState(null);
+
+    // Fetching the enrollment details when the component mounts
     useEffect(() => {
+        // Retrieving the token from localStorage
         let token = localStorage.getItem('token');
+        // Making a GET request to fetch the enrollment details
         axios.get(`https://college-api.vercel.app/api/enrolments/${id}`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
         })
         .then(response => {
-            setEnrolment(response.data.data);
+            // Setting the enrollment state with the fetched data
+            setEnrollment(response.data.data);
         })
         .catch(err => {
             console.error(err);
         });
     }, [id]);
 
+    // Rendering the enrollment details or a loading message
     return (
         <div className="grid-container" style={{ marginTop: '20px' }}>
-            {enrolment ? (
+            {enrollment ? (
                 <div className="grid-x grid-margin-x">
+                    {/* Enrollment details card */}
                     <div className="cell small-12 medium-6">
                         <div className="card">
                             <div className="card-divider">
-                                <h4>Enrolment Details</h4>
+                                <h4>Enrollment Details</h4>
                             </div>
                             <div className="card-section">
-                                <p><b>Date: </b>{enrolment.date}</p>
-                                <p><b>Time: </b>{enrolment.time}</p>
-                                <p><b>Status: </b>{enrolment.status}</p>
-                                <p><b>ID: </b>{enrolment.id}</p>
+                                <p><b>Date: </b>{enrollment.date}</p>
+                                <p><b>Time: </b>{enrollment.time}</p>
+                                <p><b>Status: </b>{enrollment.status}</p>
+                                <p><b>ID: </b>{enrollment.id}</p>
                             </div>
                         </div>
                     </div>
+                    {/* Course details card */}
                     <div className="cell small-12 medium-6">
                         <div className="card">
                             <div className="card-divider">
                                 <h4>Course Details</h4>
                             </div>
                             <div className="card-section">
-                                <p><b>Title: </b>{enrolment.course && enrolment.course.title}</p>
-                                <p><b>Code: </b>{enrolment.course && enrolment.course.code}</p>
-                                <p><b>Description: </b>{enrolment.course && enrolment.course.description}</p>
-                                <p><b>Points: </b>{enrolment.course && enrolment.course.points}</p>
+                                <p><b>Title: </b>{enrollment.course && enrollment.course.title}</p>
+                                <p><b>Code: </b>{enrollment.course && enrollment.course.code}</p>
+                                <p><b>Description: </b>{enrollment.course && enrollment.course.description}</p>
+                                <p><b>Points: </b>{enrollment.course && enrollment.course.points}</p>
                             </div>
                         </div>
                     </div>
+                    {/* Lecturer details card */}
                     <div className="cell small-12 medium-6">
                         <div className="card">
                             <div className="card-divider">
                                 <h4>Lecturer Details</h4>
                             </div>
                             <div className="card-section">
-                                <p><b>Name: </b>{enrolment.lecturer && enrolment.lecturer.name}</p>
-                                <p><b>Email: </b>{enrolment.lecturer && enrolment.lecturer.email}</p>
-                                <p><b>Phone: </b>{enrolment.lecturer && enrolment.lecturer.phone}</p>
-                                <p><b>Address: </b>{enrolment.lecturer && enrolment.lecturer.address}</p>
+                                <p><b>Name: </b>{enrollment.lecturer && enrollment.lecturer.name}</p>
+                                <p><b>Email: </b>{enrollment.lecturer && enrollment.lecturer.email}</p>
+                                <p><b>Phone: </b>{enrollment.lecturer && enrollment.lecturer.phone}</p>
+                                <p><b>Address: </b>{enrollment.lecturer && enrollment.lecturer.address}</p>
                             </div>
                         </div>
                     </div>
@@ -74,4 +87,5 @@ const Show = () => {
     );
 }
 
+// Exporting the Show page
 export default Show;

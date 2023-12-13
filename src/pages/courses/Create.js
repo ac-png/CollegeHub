@@ -1,91 +1,110 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+// Importing necessary modules from React and external libraries
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from '../../config/api';
 import { useAuth } from "../../contexts/AuthContext";
 
-const Create = () => {
-    const { onAuthenticated } = useAuth();
+// Component to display details of a specific course
+const Show = () => {
+    // Using authentication context, params, and navigation hook
+    const { authenticated } = useAuth();
+    const { id } = useParams();
     const navigate = useNavigate();
 
-    const [form, setForm] = useState({
-        title: '',
-        code: '',
-        description: '',
-        points: '',
-        level: '',
-    });
+    // State to store the course details, toggle confirmation, and loading status
+    const [course, setCourse] = useState(null);
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [loading, setLoading] = useState(true);
 
-    const [errors, setErrors] = useState({
-        title: '',
-        code: '',
-        description: '',
-        points: '',
-        level: '',
-    });
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
+    // Fetching the course details when the component mounts
+    useEffect(() => {
+        // Retrieving the token from localStorage
         let token = localStorage.getItem('token');
-
-        axios
-            .post('https://college-api.vercel.app/api/courses', form, {
+        // Making a GET request to fetch the course details
+        axios.get(`https://college-api.vercel.app/api/courses/${id}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
             })
-            .then((response) => {
+            .then(response => {
+                // Setting the course state with the fetched data
+                setCourse(response.data.data);
+                // Updating loading status
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error(err);
+                // Updating loading status
+                setLoading(false);
+            })
+    }, [id]);
+
+    // Handling the course deletion
+    const handleDelete = () => {
+        // Retrieving the token from localStorage
+        let token = localStorage.getItem('token');
+        // Making a DELETE request to delete the course
+        axios.delete(`https://college-api.vercel.app/api/courses/${id}`, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+            .then(response => {
+                console.log("Course deleted successfully");
+                // Navigating to the courses page after deletion
                 navigate('/courses');
             })
-            .catch((err) => {
-                console.log(err.response.data.errors);
-                setErrors(err.response.data.errors);
+            .catch(err => {
+                console.error(err);
             });
     };
 
-    const handleForm = (e) => {
-        const { name, value } = e.target;
-        setForm((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
-
-        setErrors((prevErrors) => ({
-            ...prevErrors,
-            [name]: '',
-        }));
+    // Toggling the confirmation
+    const toggleConfirmation = () => {
+        setShowConfirmation(!showConfirmation);
     };
 
+    // Rendering the course details
     return (
-        <form className="grid-container" onSubmit={handleSubmit} style={{ marginTop: '20px' }}>
-            <h3>Create Course</h3>
-            <label htmlFor="title">
-                Title: <input type="text" id="title" name="title" onChange={handleForm} />
-                <p style={{ color: 'red' }}>{errors.title}</p>
-            </label>
-            <label htmlFor="code">
-                Code: <input type="text" id="code" name="code" onChange={handleForm} />
-                <p style={{ color: 'red' }}>{errors.code}</p>
-            </label>
-            <label htmlFor="description">
-                Description:
-                <textarea id="description" name="description" onChange={handleForm} />
-                <p style={{ color: 'red' }}>{errors.description}</p>
-            </label>
-            <label htmlFor="points">
-                Points: <input type="number" id="points" name="points" onChange={handleForm} />
-                <p style={{ color: 'red' }}>{errors.points}</p>
-            </label>
-            <label htmlFor="level">
-                Level: <input type="number" id="level" name="level" onChange={handleForm} />
-                <p style={{ color: 'red' }}>{errors.level}</p>
-            </label>
-            <p style={{ color: 'red' }}>{errors.general}</p>
-            <button className="submit button" type="submit">
-                Create
-            </button>
-        </form>
-    );
-};
+        <div className="grid-container" style={{ marginTop: '20px' }}>
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                <div>
+                    {/* Displaying course details */}
+                    <h1>{course.title}</h1>
+                    <p><b>Code: </b>{course.code}</p>
+                    <p><b>Description: </b>{course.description}</p>
+                    <p><b>Points: </b>{course.points}</p>
+                    <p><b>Level: </b>{course.level}</p>
+                    <p><b>Created At: </b>{course.created_at}</p>
+                    <p><b>Updated At: </b>{course.updated_at}</p>
 
-export default Create;
+                    {/* Button to trigger deletion and confirmation dialog */}
+                    {authenticated && (
+                        <>
+                            <button className="alert button" onClick={toggleConfirmation}>Delete Course</button>
+                            {/* Confirmation dialog */}
+                            {showConfirmation && (
+                                <div className="overlay">
+                                    <div className="confirmation-popup">
+                                        <p>Are you sure you want to delete this course?</p>
+                                        {/* Buttons for confirmation and cancellation */}
+                                        <div className="button-group">
+                                            <button className="button alert" onClick={handleDelete}>Delete</button>
+                                            <button className="button secondary" onClick={toggleConfirmation}>Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </>
+                    )}
+
+                </div>
+            )}
+        </div>
+    );
+}
+
+// Exporting the Show page
+export default Show;
