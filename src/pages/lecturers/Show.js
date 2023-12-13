@@ -1,6 +1,6 @@
 // Importing necessary modules from React and external libraries
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from '../../config/api';
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -101,6 +101,8 @@ const Show = () => {
                         <p>No enrollments found.</p>
                     )}
 
+                    {/* Link to edit course */}
+                    <Link to={`/lecturers/edit/${lecturer.id}`} className="submit warning button">Edit Course</Link>
                     {/* Button to trigger the delete confirmation */}
                     <button className="alert button" onClick={toggleConfirmation}>Delete Course</button>
 

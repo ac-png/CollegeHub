@@ -13,10 +13,12 @@ import SignupForm from './components/SignupForm';
 import CoursesIndex from './pages/courses/Index';
 import CourseShow from './pages/courses/Show';
 import CourseCreate from './pages/courses/Create';
+import CourseEdit from './pages/courses/Edit';
 
 import LecturersIndex from './pages/lecturers/Index';
 import LecturersShow from './pages/lecturers/Show';
 import LecturersCreate from './pages/lecturers/Create';
+import LecturersEdit from './pages/lecturers/Edit';
 
 import EnrollmentsIndex from './pages/enrollments/Index';
 import EnrollmentsShow from './pages/enrollments/Show';
@@ -48,11 +50,13 @@ function App() {
         <Route path='/courses' element={<CoursesIndex />} />
         <Route path='/courses/:id' element={<CourseShow />} />
         <Route path='/courses/create' element={<CourseCreate />} />
+        <Route path='/courses/edit/:id' element={<CourseEdit />} />
 
         {/* Routes for Lecturers */}
         <Route path='/lecturers' element={<LecturersIndex />} />
         <Route path='/lecturers/:id' element={<LecturersShow />} />
         <Route path='/lecturers/create' element={<LecturersCreate />} />
+        <Route path='/lecturers/edit/:id' element={<LecturersEdit />} />
 
         {/* Routes for Enrollments */}
         <Route path='/enrollments' element={<EnrollmentsIndex />} />

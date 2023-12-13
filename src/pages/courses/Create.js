@@ -86,7 +86,7 @@ const Create = () => {
             </label>
             <label htmlFor="description">
                 Description:
-                <textarea id="description" name="description" onChange={handleForm} />
+                <textarea id="description" rows="3" name="description" onChange={handleForm} />
                 <p style={{ color: 'red' }}>{errors.description}</p>
             </label>
             <label htmlFor="points">

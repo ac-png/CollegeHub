@@ -1,6 +1,6 @@
 // Importing necessary modules from React and external libraries
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from '../../config/api';
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -75,6 +75,8 @@ const Show = () => {
                     <p><b>Created At: </b>{course.created_at}</p>
                     <p><b>Updated At: </b>{course.updated_at}</p>
 
+                    {/* Link to edit course */}
+                    <Link to={`/courses/edit/${course.id}`} className="submit warning button">Edit Course</Link>
                     {/* Button to trigger the delete confirmation */}
                     <button className="alert button" onClick={toggleConfirmation}>Delete Course</button>
 
@@ -92,7 +94,6 @@ const Show = () => {
                             </div>
                         </div>
                     )}
-
                 </div>
             ) : (
                 // Loading message when course details are being fetched
