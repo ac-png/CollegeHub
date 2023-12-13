@@ -1,6 +1,6 @@
 // Importing necessary modules from React and external libraries
-import { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from '../../config/api';
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -28,8 +28,12 @@ const Show = () => {
     const { authenticated } = useAuth();
     // Extracting the lecturer id from the URL parameters
     const { id } = useParams();
+    // Navigation function for programmatic redirects
+    const navigate = useNavigate();
     // State to store the lecturer details
     const [lecturer, setLecturer] = useState([]);
+    // State to control the visibility of the delete confirmation popup
+    const [showConfirmation, setShowConfirmation] = useState(false);
 
     // Fetching the lecturer details when the component mounts
     useEffect(() => {
@@ -50,27 +54,31 @@ const Show = () => {
             })
     }, [id]);
 
-    useEffect(() => {
-    let token = localStorage.getItem('token');
-    axios.get(`https://college-api.vercel.app/api/lecturers/${id}`, {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        })
-        .then(response => {
-            // Check if the response and its data property are defined
-            if (response && response.data) {
-                // Set the lecturer state with the fetched data
-                setLecturer(response.data.data);
-            } else {
-                console.error("Invalid response format:", response);
-            }
-        })
-        .catch(err => {
-            console.error(err);
-        })
-}, [id]);
 
+    // Function to handle the deletion of the course
+    const handleDelete = () => {
+        // Retrieving the token from localStorage
+        let token = localStorage.getItem('token');
+        // Making a DELETE request to delete the course
+        axios.delete(`https://college-api.vercel.app/api/lecturers/${id}`, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+            .then(response => {
+                console.log("Course deleted successfully");
+                // Redirecting to the courses page after deletion
+                navigate('/courses');
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    };
+
+    // Function to toggle the visibility of the delete confirmation popup
+    const toggleConfirmation = () => {
+        setShowConfirmation(!showConfirmation);
+    };
 
     // Rendering the lecturer details or a loading message
     return (
@@ -92,6 +100,22 @@ const Show = () => {
                     ) : (
                         <p>No enrollments found.</p>
                     )}
+
+                    {/* Confirmation popup */}
+                    {showConfirmation && (
+                        <div className="overlay">
+                            <div className="confirmation-popup">
+                                <p>Are you sure you want to delete this course?</p>
+                                <div className="button-group">
+                                    {/* Button to confirm deletion */}
+                                    <button className="button alert" onClick={handleDelete}>Delete</button>
+                                    {/* Button to cancel deletion */}
+                                    <button className="button secondary" onClick={toggleConfirmation}>Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
                 </div>
             ) : (
                 <p>Loading...</p>
