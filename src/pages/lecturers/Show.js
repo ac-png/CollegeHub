@@ -68,7 +68,7 @@ const Show = () => {
             .then(response => {
                 console.log("Course deleted successfully");
                 // Redirecting to the courses page after deletion
-                navigate('/courses');
+                navigate('/lecturers');
             })
             .catch(err => {
                 console.error(err);
@@ -100,6 +100,9 @@ const Show = () => {
                     ) : (
                         <p>No enrollments found.</p>
                     )}
+
+                    {/* Button to trigger the delete confirmation */}
+                    <button className="alert button" onClick={toggleConfirmation}>Delete Course</button>
 
                     {/* Confirmation popup */}
                     {showConfirmation && (

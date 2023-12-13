@@ -12,9 +12,11 @@ import SignupForm from './components/SignupForm';
 // Importing pages
 import CoursesIndex from './pages/courses/Index';
 import CourseShow from './pages/courses/Show';
+import CourseCreate from './pages/courses/Create';
 
 import LecturersIndex from './pages/lecturers/Index';
-import LecturerShow from './pages/lecturers/Show';
+import LecturersShow from './pages/lecturers/Show';
+import LecturersCreate from './pages/lecturers/Create';
 
 import EnrollmentsIndex from './pages/enrollments/Index';
 import EnrollmentsShow from './pages/enrollments/Show';
@@ -33,7 +35,7 @@ function App() {
       // If token is found, user is authenticated
       onAuthenticated(true);
     }
-  }, []);
+  });
 
   // Variable to hold protected routes if user is authenticated
   let protectedRoutes;
@@ -45,10 +47,12 @@ function App() {
         {/* Routes for Courses */}
         <Route path='/courses' element={<CoursesIndex />} />
         <Route path='/courses/:id' element={<CourseShow />} />
+        <Route path='/courses/create' element={<CourseCreate />} />
 
         {/* Routes for Lecturers */}
         <Route path='/lecturers' element={<LecturersIndex />} />
-        <Route path='/lecturers/:id' element={<LecturerShow />} />
+        <Route path='/lecturers/:id' element={<LecturersShow />} />
+        <Route path='/lecturers/create' element={<LecturersCreate />} />
 
         {/* Routes for Enrollments */}
         <Route path='/enrollments' element={<EnrollmentsIndex />} />

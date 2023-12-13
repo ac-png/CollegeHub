@@ -57,8 +57,8 @@ const Index = () => {
         <div className="grid-container" style={{ marginTop: '20px' }}>
             {/* Heading */}
             <h2>All Lecturers</h2>
-            {/* Button to add a new lecturer (placeholder, not functional) */}
-            <button className="submit success button">Add Lecturer</button>
+            {/* Link to add a new lecturer */}
+            <Link to={`/lecturers/create`} className="submit success button">Add Lecturer</Link>
             {/* Displaying the list of lecturers */}
             <div className="grid-x grid-margin-x">
                 {lecturersList}
