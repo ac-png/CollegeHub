@@ -122,16 +122,17 @@ const Create = () => {
                 <input type="time" id="time" name="time" onChange={handleForm} />
                 <p style={{ color: 'red' }}>{errors.time}</p>
             </label>
-            <fieldset class="large-5 cell">
+            <fieldset htmlFor="status">
                 <legend>Status:</legend>
-                <input type="radio" name="status" value="assigned" id="assigned" required onChange={handleForm} />
+                <input type="radio" name="status" value="assigned" id="assigned" onChange={handleForm} />
                 <label htmlFor="assigned">Assigned</label>
-                <input type="radio" name="status" value="career_break" id="career_break" required onChange={handleForm} />
+                <input type="radio" name="status" value="career_break" id="career_break" onChange={handleForm} />
                 <label htmlFor="career_break">Career Break</label>
-                <input type="radio" name="status" value="interested" id="interested" required onChange={handleForm} />
+                <input type="radio" name="status" value="interested" id="interested" onChange={handleForm} />
                 <label htmlFor="interested">Interested</label>
-                <input type="radio" name="status" value="associate" id="associate" required onChange={handleForm} />
+                <input type="radio" name="status" value="associate" id="associate" onChange={handleForm} />
                 <label htmlFor="associate">Associate</label>
+                <p style={{ color: 'red' }}>{errors.status}</p>
             </fieldset>
             <label htmlFor="lecturer">Lecturer:
                 <select name="lecturer_id" onChange={handleForm}>
