@@ -10,6 +10,10 @@ const Index = () => {
     const { authenticated } = useAuth();
     // State to store the list of courses
     const [courses, setCourses] = useState([]);
+    // State to track the current page for pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    // Number of items per page
+    const pageSize = 6;
 
     // Fetching the list of courses when the component mounts
     useEffect(() => {
@@ -30,11 +34,22 @@ const Index = () => {
             })
     }, []);
 
+    // Calculate the index of the last and first Course on the current page
+    const indexOfLastCourse = currentPage * pageSize;
+    const indexOfFirstCourse = indexOfLastCourse - pageSize;
+    // Extract the courses for the current page
+    const currentCourses = courses.slice(indexOfFirstCourse, indexOfLastCourse);
+
+    // Function to handle page changes
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    }; 
+
     // Rendering when there are no courses
     if (courses.length === 0) return <h3>There are no courses</h3>;
 
     // Mapping courses to JSX elements
-    const coursesList = courses.map(course => {
+    const coursesList = currentCourses.map(course => {
         return (
             <div key={course.id} className="cell medium-4">
                 <div className="callout"  style={{ borderRadius: '5px' }}>
@@ -62,6 +77,20 @@ const Index = () => {
             {/* Displaying the list of courses */}
             <div className="grid-x grid-margin-x">
                 {coursesList}
+            </div>
+            {/* Pagination controls */}
+            <div className="grid-x grid-margin-x align-center">
+                <div className="cell small-12">
+                    <ul className="pagination text-center">
+                        <li className={currentPage === 1 ? 'disabled' : ''}>
+                            <button className="button" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>Previous</button>
+                        </li>
+                        <li><span style={{ margin: '10px' }}>{currentPage}</span></li>
+                        <li>
+                            <button className="button" onClick={() => handlePageChange(currentPage + 1)}>Next</button>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     );

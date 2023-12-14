@@ -1,4 +1,3 @@
-// Importing necessary modules from React and external libraries
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import axios from '../../config/api';
@@ -10,6 +9,10 @@ const Index = () => {
     const { authenticated } = useAuth();
     // State to store the list of enrollments
     const [enrollments, setEnrollments] = useState([]);
+    // State to track the current page for pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    // Number of items per page
+    const pageSize = 6;
 
     // Fetching the list of enrollments when the component mounts
     useEffect(() => {
@@ -30,6 +33,17 @@ const Index = () => {
         })
     }, []);
 
+    // Calculate the index of the last and first enrollment on the current page
+    const indexOfLastEnrollment = currentPage * pageSize;
+    const indexOfFirstEnrollment = indexOfLastEnrollment - pageSize;
+    // Extract the enrollments for the current page
+    const currentEnrollments = enrollments.slice(indexOfFirstEnrollment, indexOfLastEnrollment);
+
+    // Function to handle page changes
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
+
     // Rendering the list of enrollments
     return (
         <div className="grid-container" style={{ marginTop: '20px' }}>
@@ -39,10 +53,10 @@ const Index = () => {
             <Link to="/enrollments/create" className="submit success button">Add Enrollment</Link>
             {/* Displaying the list of enrollments or a message if there are none */}
             <div className="grid-x grid-margin-x">
-                {enrollments.length === 0 ? (
+                {currentEnrollments.length === 0 ? (
                     <h3>There are no enrollments</h3>
                 ) : (
-                    enrollments.map(enrollment => (
+                    currentEnrollments.map(enrollment => (
                         <div key={enrollment.id} className="cell medium-4">
                             <div className="callout" style={{ borderRadius: '5px' }}>
                                 {/* Enrollment details */}
@@ -64,6 +78,20 @@ const Index = () => {
                         </div>
                     ))
                 )}
+            </div>
+            {/* Pagination controls */}
+            <div className="grid-x grid-margin-x align-center">
+                <div className="cell small-12">
+                    <ul className="pagination text-center">
+                        <li className={currentPage === 1 ? 'disabled' : ''}>
+                            <button className="button" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>Previous</button>
+                        </li>
+                        <li><span style={{ margin: '10px' }}>{currentPage}</span></li>
+                        <li>
+                            <button className="button" onClick={() => handlePageChange(currentPage + 1)}>Next</button>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     );
