@@ -1,6 +1,6 @@
 // Importing necessary modules from React and external libraries
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
 
 // Importing components
@@ -80,6 +80,9 @@ function App() {
         <Route path='/signup' element={<SignupForm />} />
         <Route path='/logout' element={<Logout />} />
         <Route path='/' element={<Home />} />
+
+        {/* Redirect to login page if user is not authenticated */}
+        {!authenticated && <Route path="*" element={<Navigate to="/login" />} />}
 
         {/* Displaying protected routes if user is authenticated */}
         {protectedRoutes}
