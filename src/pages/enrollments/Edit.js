@@ -109,19 +109,28 @@ const Edit = () => {
             {enrollment && (
                 <>
                     <label htmlFor="date">
-                        Date: <input type="date" id="date" name="date" onChange={handleForm} value={enrollment.date} />
+                        Date:
+                        <input type="date" id="date" name="date" onChange={handleForm} value={enrollment.date} />
                         <p style={{ color: 'red' }}>{errors.date}</p>
                     </label>
                     <label htmlFor="time">
-                        Time: <input type="time" id="time" name="time" onChange={handleForm} value={enrollment.time} />
+                        Time:
+                        <input type="time" id="time" name="time" onChange={handleForm} value={enrollment.time} />
                         <p style={{ color: 'red' }}>{errors.time}</p>
                     </label>
-                    <label htmlFor="status">
-                        Status: <input type="text" id="status" name="status" onChange={handleForm} value={enrollment.status} />
-                        <p style={{ color: 'red' }}>{errors.status}</p>
-                    </label>
+                    <fieldset class="large-5 cell">
+                        <legend>Status:</legend>
+                        <input type="radio" name="status" value="assigned" id="assigned" required onChange={handleForm} />
+                        <label htmlFor="assigned">Assigned</label>
+                        <input type="radio" name="status" value="career_break" id="career_break" required onChange={handleForm} />
+                        <label htmlFor="career_break">Career Break</label>
+                        <input type="radio" name="status" value="interested" id="interested" required onChange={handleForm} />
+                        <label htmlFor="interested">Interested</label>
+                        <input type="radio" name="status" value="associate" id="associate" required onChange={handleForm} />
+                        <label htmlFor="associate">Associate</label>
+                    </fieldset>
                     <p style={{ color: 'red' }}>{errors.course_id}</p>
-                    <label htmlFor="lecturer">Lecturer
+                    <label htmlFor="lecturer">Lecturer:
                         <select name="lecturer_id" onChange={handleForm}>
                             {lecturers.map(lecturer => (
                                 <option key={lecturer.id} value={lecturer.id}>{lecturer.name}</option>
@@ -129,7 +138,7 @@ const Edit = () => {
                         </select>
                         <p style={{ color: 'red' }}>{errors.lecturer_id}</p>
                     </label>
-                    <label htmlFor="course">Course
+                    <label htmlFor="course">Course:
                         <select name="course_id" onChange={handleForm}>
                             {courses.map(course => (
                                 <option key={course.id} value={course.id}>{course.title}</option>

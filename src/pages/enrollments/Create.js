@@ -20,7 +20,6 @@ const Create = () => {
 		time: '',
 		status: '',
 		enrollment_id: '',
-		lecturer_id: '',
     });
 
     // State to manage form validation errors
@@ -29,7 +28,6 @@ const Create = () => {
 		time: '',
 		status: '',
 		enrollment_id: '',
-		lecturer_id: '',
     });
 
     // Function to fetch lecturers and courses from the API
@@ -115,18 +113,27 @@ const Create = () => {
         <form className="grid-container" onSubmit={handleSubmit} style={{ marginTop: '20px' }}>
             <h3>Create Enrollment</h3>
             <label htmlFor="date">
-                Date: <input type="date" id="date" name="date" onChange={handleForm} />
+                Date:
+                <input type="date" id="date" name="date" onChange={handleForm} />
                 <p style={{ color: 'red' }}>{errors.date}</p>
             </label>
             <label htmlFor="time">
-                Time: <input type="time" id="time" name="time" onChange={handleForm} />
+                Time:
+                <input type="time" id="time" name="time" onChange={handleForm} />
                 <p style={{ color: 'red' }}>{errors.time}</p>
             </label>
-            <label htmlFor="status">
-                Status: <input type="text" id="status" name="status" onChange={handleForm} />
-                <p style={{ color: 'red' }}>{errors.status}</p>
-            </label>
-            <label htmlFor="lecturer">Lecturer
+            <fieldset class="large-5 cell">
+                <legend>Status:</legend>
+                <input type="radio" name="status" value="assigned" id="assigned" required onChange={handleForm} />
+                <label htmlFor="assigned">Assigned</label>
+                <input type="radio" name="status" value="career_break" id="career_break" required onChange={handleForm} />
+                <label htmlFor="career_break">Career Break</label>
+                <input type="radio" name="status" value="interested" id="interested" required onChange={handleForm} />
+                <label htmlFor="interested">Interested</label>
+                <input type="radio" name="status" value="associate" id="associate" required onChange={handleForm} />
+                <label htmlFor="associate">Associate</label>
+            </fieldset>
+            <label htmlFor="lecturer">Lecturer:
                 <select name="lecturer_id" onChange={handleForm}>
                     {lecturers.map(lecturer => (
                         <option key={lecturer.id} value={lecturer.id}>{lecturer.name}</option>
@@ -134,7 +141,7 @@ const Create = () => {
                 </select>
                 <p style={{ color: 'red' }}>{errors.lecturer_id}</p>
             </label>
-            <label htmlFor="course">Course
+            <label htmlFor="course">Course:
                 <select name="course_id" onChange={handleForm}>
                     {courses.map(course => (
                         <option key={course.id} value={course.id}>{course.title}</option>
