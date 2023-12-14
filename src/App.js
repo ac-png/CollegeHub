@@ -56,12 +56,21 @@ return (
 
       {!authenticated && (
         <>
-          {/* Redirect to login page for all public routes */}
+          {/* Redirect to login page for all protected routes */}
           {[
-            '/login',
-            '/logout',
-            '/signup',
-            '/',
+            '/courses',
+            '/courses/:id',
+            '/courses/create',
+            '/courses/edit/:id',
+            '/lecturers',
+            '/lecturers/:id',
+            '/lecturers/create',
+            '/lecturers/edit/:id',
+            '/enrollments',
+            '/enrollments/:id',
+            '/enrollments/create',
+            '/enrollments/edit/:id',
+            '/user',
           ].map((path) => (
             <Route key={path} path={path} element={<Navigate to="/login" />} />
           ))}
