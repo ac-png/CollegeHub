@@ -17,14 +17,15 @@ const Navbar = () => {
 
     const headingStyle = {
         fontFamily: "'Lobster', sans-serif",
+        'font-size': 65,
     };
 
     // Rendering the navigation bar
     return (
         <>
-                <h1 className='text-center' style={headingStyle}>
-                    College Hub
-                </h1>
+            <h1 className='text-center' style={headingStyle}>
+                College Hub
+            </h1>
             <div className="top-bar stacked-for-medium" id="example-menu">
                 <div className="top-bar-left">
                     {/* Left-aligned menu items */}
