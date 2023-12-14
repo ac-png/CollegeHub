@@ -1,3 +1,6 @@
+// Importing necessary modules from React and external libraries
+import { Link } from 'react-router-dom';
+
 // Component for the logout page
 const Logout = () => {
     return (
@@ -6,6 +9,7 @@ const Logout = () => {
             <h2>Logout Page</h2>
             {/* Logout success message */}
             <p>You have been logged out successfully.</p>
+            <Link to="/" className='button'>Go to Home</Link>
         </div>
     );
 };

@@ -32,9 +32,9 @@ const LoginForm = () => {
             password: form.password
         })
         .then(response => {
-            // Authenticating user and navigating to courses page on successful login
+            // Authenticating user and navigating to home page on successful login
             onAuthenticated(true, response.data.token);
-            navigate('/courses');
+            navigate('/');
         })
         .catch(err => {
             // Handling errors and displaying error messages
