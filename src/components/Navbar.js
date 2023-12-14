@@ -32,7 +32,7 @@ const Navbar = () => {
                         <li><Link to="/">Home</Link></li>
                         <li><Link to="/courses">Courses</Link></li>
                         <li><Link to="/lecturers">Lecturers</Link></li>
-                        <li><Link to="/enrolments">Enrolments</Link></li>
+                        <li><Link to="/enrollments">Enrollments</Link></li>
                     </ul>
                 </div>
                 <div className="top-bar-right">

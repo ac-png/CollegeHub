@@ -22,6 +22,8 @@ import LecturersEdit from './pages/lecturers/Edit';
 
 import EnrollmentsIndex from './pages/enrollments/Index';
 import EnrollmentsShow from './pages/enrollments/Show';
+import EnrollmentsCreate from './pages/enrollments/Create';
+import EnrollmentsEdit from './pages/enrollments/Edit';
 
 import User from './pages/User';
 import PageNotFound from './pages/PageNotFound';
@@ -40,58 +42,51 @@ function App() {
     }
   });
 
-  // Variable to hold protected routes if user is authenticated
-  let protectedRoutes;
+// Rendering the main structure of the app
+return (
+  <Router>
+    {/* Displaying the Navbar component */}
+    <Navbar />
+    <Routes>
+      {/* Public routes */}
+      <Route path='/login' element={<LoginForm />} />
+      <Route path='/signup' element={<SignupForm />} />
+      <Route path='/logout' element={<Logout />} />
+      <Route path='/' element={<Home />} />
 
-  // Checking if user is authenticated to determine if protected routes should be used
-  if (authenticated) {
-    protectedRoutes = (
-      <>
-        {/* Routes for Courses */}
-        <Route path='/courses' element={<CoursesIndex />} />
-        <Route path='/courses/:id' element={<CourseShow />} />
-        <Route path='/courses/create' element={<CourseCreate />} />
-        <Route path='/courses/edit/:id' element={<CourseEdit />} />
+      {/* Redirect to login page if user is not authenticated */}
+      {!authenticated && <Route path="*" element={<Navigate to="/login" />} />}
 
-        {/* Routes for Lecturers */}
-        <Route path='/lecturers' element={<LecturersIndex />} />
-        <Route path='/lecturers/:id' element={<LecturersShow />} />
-        <Route path='/lecturers/create' element={<LecturersCreate />} />
-        <Route path='/lecturers/edit/:id' element={<LecturersEdit />} />
+      {/* Displaying protected routes if user is authenticated */}
+      {authenticated && [
+        // Routes for Courses
+        <Route key="/courses" path='/courses' element={<CoursesIndex />} />,
+        <Route key="/courses/:id" path='/courses/:id' element={<CourseShow />} />,
+        <Route key="/courses/create" path='/courses/create' element={<CourseCreate />} />,
+        <Route key="/courses/edit/:id" path='/courses/edit/:id' element={<CourseEdit />} />,
 
-        {/* Routes for Enrollments */}
-        <Route path='/enrollments' element={<EnrollmentsIndex />} />
-        <Route path='/enrollments/:id' element={<EnrollmentsShow />} />
+        // Routes for Lecturers
+        <Route key="/lecturers" path='/lecturers' element={<LecturersIndex />} />,
+        <Route key="/lecturers/:id" path='/lecturers/:id' element={<LecturersShow />} />,
+        <Route key="/lecturers/create" path='/lecturers/create' element={<LecturersCreate />} />,
+        <Route key="/lecturers/edit/:id" path='/lecturers/edit/:id' element={<LecturersEdit />} />,
 
-        {/* Route for User profile */}
-        <Route path='/user' element={<User />} />
-      </>
-    );
-  }
+        // Routes for Enrollments
+        <Route key="/enrollments" path='/enrollments' element={<EnrollmentsIndex />} />,
+        <Route key="/enrollments/:id" path='/enrollments/:id' element={<EnrollmentsShow />} />,
+        <Route key="/enrollments/create" path='/enrollments/create' element={<EnrollmentsCreate />} />,
+        <Route key="/enrollments/edit/:id" path='/enrollments/edit/:id' element={<EnrollmentsEdit />} />,
 
-  // Rendering the main structure of the app
-  return (
-    <Router>
-      {/* Displaying the Navbar component */}
-      <Navbar />
-      <Routes>
-        {/* Public routes */}
-        <Route path='/login' element={<LoginForm />} />
-        <Route path='/signup' element={<SignupForm />} />
-        <Route path='/logout' element={<Logout />} />
-        <Route path='/' element={<Home />} />
+        // Route for User profile
+        <Route key="/user" path='/user' element={<User />} />,
+      ]}
 
-        {/* Redirect to login page if user is not authenticated */}
-        {!authenticated && <Route path="*" element={<Navigate to="/login" />} />}
+      {/* Catch-all route for Page Not Found */}
+      <Route path='*' element={<PageNotFound />} />
+    </Routes>
+  </Router>
+);
 
-        {/* Displaying protected routes if user is authenticated */}
-        {protectedRoutes}
-
-        {/* Catch-all route for Page Not Found */}
-        <Route path='*' element={<PageNotFound />} />
-      </Routes>
-    </Router>
-  );
 }
 
 // Exporting the App

@@ -36,7 +36,7 @@ const Index = () => {
             {/* Heading */}
             <h2>All Enrollments</h2>
             {/* Link to add a new enrollment */}
-            <Link to="/add-enrollment" className="submit success button">Add Enrollment</Link>
+            <Link to="/enrollments/create" className="submit success button">Add Enrollment</Link>
             {/* Displaying the list of enrollments or a message if there are none */}
             <div className="grid-x grid-margin-x">
                 {enrollments.length === 0 ? (
