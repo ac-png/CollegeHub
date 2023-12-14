@@ -54,8 +54,19 @@ return (
       <Route path='/logout' element={<Logout />} />
       <Route path='/' element={<Home />} />
 
-      {/* Redirect to login page if user is not authenticated */}
-      {!authenticated && <Route path="*" element={<Navigate to="/login" />} />}
+      {!authenticated && (
+        <>
+          {/* Redirect to login page for all public routes */}
+          {[
+            '/login',
+            '/logout',
+            '/signup',
+            '//',
+          ].map((path) => (
+            <Route key={path} path={path} element={<Navigate to="/login" />} />
+          ))}
+        </>
+      )}
 
       {/* Displaying protected routes if user is authenticated */}
       {authenticated && [
