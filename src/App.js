@@ -61,7 +61,7 @@ return (
             '/login',
             '/logout',
             '/signup',
-            '//',
+            '/',
           ].map((path) => (
             <Route key={path} path={path} element={<Navigate to="/login" />} />
           ))}
