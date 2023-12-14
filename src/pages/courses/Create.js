@@ -90,11 +90,11 @@ const Create = () => {
                 <p style={{ color: 'red' }}>{errors.description}</p>
             </label>
             <label htmlFor="points">
-                Points: <input type="number" id="points" name="points" onChange={handleForm} />
+                Points: <input type="number" id="points" name="points" min="100" onChange={handleForm} />
                 <p style={{ color: 'red' }}>{errors.points}</p>
             </label>
             <label htmlFor="level">
-                Level: <input type="number" id="level" name="level" onChange={handleForm} />
+                Level: <input type="number" id="level" name="level" min="7" onChange={handleForm} />
                 <p style={{ color: 'red' }}>{errors.level}</p>
             </label>
             <p style={{ color: 'red' }}>{errors.general}</p>

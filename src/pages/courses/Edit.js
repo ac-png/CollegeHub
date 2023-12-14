@@ -77,10 +77,10 @@ const Edit = () => {
                         <textarea id="description" rows="3" name="description" value={course.description} onChange={handleInputChange} />
                     </label>
                     <label htmlFor="points">
-                        Points: <input type="number" id="points" name="points" value={course.points} onChange={handleInputChange} />
+                        Points: <input type="number" id="points" min="100" name="points" value={course.points} onChange={handleInputChange} />
                     </label>
                     <label htmlFor="level">
-                        Level: <input type="number" id="level" name="level" value={course.level} onChange={handleInputChange} />
+                        Level: <input type="number" id="level" min="7" name="level" value={course.level} onChange={handleInputChange} />
                     </label>
                     <button className="submit button" type="submit">
                         Edit
